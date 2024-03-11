@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .blue-neon {
+        border: 0.2rem solid #fff;
+        border-radius: 2rem;
+        padding: 0.4em;
+        box-shadow: 0 0 .2rem #fff,
+            0 0 .2rem #fff,
+            0 0 0.5rem #005894,
+            0 0 0.6rem #005894,
+            0 0 0.5rem #005894,
+            inset 0 0 1.2rem #005894;
+    }
+    .red-neon {
+        border: 0.2rem solid #fff;
+        border-radius: 2rem;
+        padding: 0.4em;
+        box-shadow: 0 0 .2rem #fff,
+            0 0 .2rem #fff,
+            0 0 0.5rem #c90000,
+            0 0 0.6rem #c90000,
+            0 0 0.5rem #c90000,
+            inset 0 0 1.2rem #c90000;
+    }
+
+
+    .background-gold {
+        background-image: linear-gradient(#FFDEA8, #FEC84E);
+    }
+
+}
