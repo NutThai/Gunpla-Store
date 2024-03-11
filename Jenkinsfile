@@ -30,9 +30,9 @@ pipeline {
                     // It stops and removes all containers, then removes all images, before running a new container.
                         sh "ssh -o StrictHostKeyChecking=no $REMOTE_HOST 'git clone https://github.com/NutThai/Gunpla-Store'"
                         sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'cd Gunpla-Store && echo BASE_URL=${BASE_URL} > .env'"
-                        sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'echo OMISE_PUBLIC_KEY=pkey_test_5yyex97jk6w30bf2yhe > Gunpla-Shop_backend/cmd/myapps/.env'"
-                        sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'echo OMISE_SECRET_KEY=skey_test_5yyex98g6g5mzezann7 >> Gunpla-Shop_backend/cmd/myapps/.env'"
-                        sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'echo SECRET_KEY=oak >> Gunpla-Shop_backend/cmd/myapps/.env'"
+                        sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'cd Gunpla-Store/Gunpla-Shop_backend/cmd/myapps/ && echo OMISE_PUBLIC_KEY=pkey_test_5yyex97jk6w30bf2yhe > .env'"
+                        sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'cd Gunpla-Store/Gunpla-Shop_backend/cmd/myapps/ && echo OMISE_SECRET_KEY=skey_test_5yyex98g6g5mzezann7 >> .env'"
+                        sh "ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} 'cd Gunpla-Store/Gunpla-Shop_backend/cmd/myapps/ && echo SECRET_KEY=oak >> .env'"
 
                 }
             }
