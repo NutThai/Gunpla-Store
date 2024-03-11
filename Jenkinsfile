@@ -21,6 +21,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Clone Git on Remote Server') {
             steps {
                 // Uses the SSH Agent plugin to setup SSH credentials.
