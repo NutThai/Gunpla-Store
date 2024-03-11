@@ -7,6 +7,7 @@ pipeline {
         IP              = sh(script: 'dig +short myip.opendns.com @resolver1.opendns.com', returnStdout: true).trim()
         BASE_URL        = "http://54.161.216.239"
     }
+    
     stages {
          stage('Clear Environment') {
             steps {
