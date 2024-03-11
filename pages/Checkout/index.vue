@@ -87,7 +87,7 @@
           <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
             v-for="item in cartStore.cart" :key="item.name">
             <!-- รอ Product Cart -->
-            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
+            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border bg-white border-gray-200 ">
               <img v-if="item.images" class="h-full w-full object-cover object-center" :src="item.images[0]"
                 alt="Product Image">
               <img v-else class="h-full w-full object-cover object-center" src="@/assets/image/placeholder.jpg"
