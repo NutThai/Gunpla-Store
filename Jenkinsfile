@@ -36,6 +36,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Build on Remote Server') {
             steps {
                 // Uses the SSH Agent plugin to setup SSH credentials.
