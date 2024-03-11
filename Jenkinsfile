@@ -14,7 +14,7 @@ pipeline {
                 sshagent([SSH_CREDENTIALS]) {
                     // These commands manage Docker containers on the remote server.
                     // It stops and removes all containers, then removes all images, before running a new container.
-                    sh "ssh -o StrictHostKeyChecking=no $REMOTE_HOST 'rm -rf kro-store'"
+                    sh "ssh -o StrictHostKeyChecking=no $REMOTE_HOST 'rm -rf Gunpla-Store'"
                     sh "ssh -o StrictHostKeyChecking=no $REMOTE_HOST 'docker stop \$(docker ps -a -q) || true'"
                     sh "ssh -o StrictHostKeyChecking=no $REMOTE_HOST 'docker rm \$(docker ps -a -q) || true'"
                     sh "ssh -o StrictHostKeyChecking=no $REMOTE_HOST 'docker rmi \$(docker images -q) || true'"
