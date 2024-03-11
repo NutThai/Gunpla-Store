@@ -149,8 +149,7 @@
                               </div>
                               <div class="flex flex-1 items-end justify-between text-sm">
                                 <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} =
-                                  {{
-    item.quantity * item.price }} บาท</p>
+                                  {{ item.quantity * item.price }} บาท</p>
 
                               </div>
                             </div>

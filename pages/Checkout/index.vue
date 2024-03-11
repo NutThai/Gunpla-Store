@@ -48,7 +48,7 @@
             <div class="relative">
 
               <label for="address" class="text-lg font-['kanit'] text-gray-500 mt-5">ที่อยู่</label>
-              <textarea id="address" name="address" placeholder="ที่อยู่" v-model="order.address" 
+              <textarea id="address" name="address" placeholder="ที่อยู่" v-model="order.address"
                 class="block w-full rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
             </div>
           </div>
@@ -87,11 +87,25 @@
           <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
             v-for="item in cartStore.cart" :key="item.name">
             <!-- รอ Product Cart -->
-            <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
-            <div class="relative ">
-              <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.images[0] alt="Product Image">
-              <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
-                <span class="font-bold font-['kanit'] text-lg">{{ item.price }} บาท</span>
+            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
+              <img v-if="item.images" class="h-full w-full object-cover object-center" :src="item.images[0]"
+                alt="Product Image">
+              <img v-else class="h-full w-full object-cover object-center" src="@/assets/image/placeholder.jpg"
+                alt="Product Image">
+            </div>
+            <div class="ml-4 flex flex-1 flex-col ">
+              <div>
+                <div class="flex justify-between text-base font-['kanit'] text-gray-900">
+                  <h3 class="font-['kanit']">
+                    <a>{{ item.name }}</a>
+                  </h3>
+                  <p class="ml-4 font-['kanit']">{{ item.price }} บาท</p>
+                </div>
+              </div>
+              <div class="flex flex-1 items-end justify-between text-sm">
+                <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} =
+                  {{ item.quantity * item.price }} บาท</p>
+
               </div>
             </div>
           </div>
@@ -166,6 +180,7 @@ const order = ref({
   token: ""
 })
 const submitOrder = async () => {
+  const token = useCookie("token");
   // const { data: res, error: error } = await useFetch(`${config.public.baseURL}/gunpla`, {
   //   method: "GET",
   // },)
@@ -173,12 +188,20 @@ const submitOrder = async () => {
   // console.log(newCard)
   try {
     const res = await $api(`/order/createPaymentToken`, {
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization": "bearer " + token.value
+      },
       method: 'POST',
       body: card.value
     })
     console.log(res)
     order.value.token = res
     await $api('/order/addOrder', {
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization": "bearer " + token.value
+      },
       method: "POST",
       body: order.value
     })
