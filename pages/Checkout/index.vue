@@ -84,7 +84,7 @@
           <div class="absolute inset-0 h-full w-full bg-gradient-to-t from-[#2c52b3] to-[#4370e4] opacity-95"></div>
         </div>
         <div class="relative">
-          <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
+          <div class="bg-transparent rounded-lg overflow-hidden bg-white border-4 border-orange-200 max-w-sm relative m-5"
             v-for="item in cartStore.cart" :key="item.name">
             <!-- รอ Product Cart -->
             <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
