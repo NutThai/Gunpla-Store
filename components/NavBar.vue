@@ -56,26 +56,26 @@
                   <MenuItem v-slot="{ active }">
                   <Nuxt-link to="/profile">
                     <a href="#"
-                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">โปรไฟล์</a>
+                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700', 'font-kanit']">โปรไฟล์</a>
 
                   </Nuxt-link>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                   <Nuxt-link to="/order-history">
                     <a href="#"
-                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">ประวัติการสั่งซื้อ</a>
+                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700', 'font-kanit']">ประวัติการสั่งซื้อ</a>
                   </Nuxt-link>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                   <a @click="userStore.signout(); navigateTo('/Login')" href="#"
-                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">ออกจากระบบ</a>
+                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700', 'font-kanit']">ออกจากระบบ</a>
                   </MenuItem>
                 </div>
                 <div v-else>
                   <MenuItem v-slot="{ active }">
                   <Nuxt-link to="/login">
                     <a href="#"
-                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">เข้าสู่ระบบ</a>
+                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700', 'font-kanit']">เข้าสู่ระบบ</a>
 
                   </Nuxt-link>
                   </MenuItem>
