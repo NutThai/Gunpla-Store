@@ -16,8 +16,8 @@
 <script setup>
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
-const slides = ["https://don_gunpla_store.s3.amazonaws.com/gunplaScale.jpg",
-  "https://don_gunpla_store.s3.amazonaws.com/gunplaSeedFreedom.png",
+const slides = ["https://dongunplastore.s3.amazonaws.com/gunplaScale.jpg",
+  "https://dongunplastore.s3.amazonaws.com/gunplaSeedFreedom.png",
 ]
 
 </script>
