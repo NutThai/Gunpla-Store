@@ -24,8 +24,9 @@
           </div>
           <ul>
             <li v-for="product in item.cart" :key="product.productId" class="flex py-2">
-              <img v-if="item.images" class=" object-cover object-center w-20 h-20 bottom-24 " :src=product.image[0]
+              <img v-if="product.image" class=" object-cover object-center w-20 h-20 bottom-24 " :src=product.image
                         alt="Product Image">
+                        
                       <img v-else class=" object-cover object-center w-20 h-20 bottom-24 " src="@/assets/image/placeholder.jpg"
                         alt="Product Image">
               <p class="ml-2 font-['kanit'] text-gray-900">{{ product.type }}</p>
@@ -40,9 +41,13 @@
 </template>
 
 <script setup>
-const order = [{ "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e1", "email": "nutthai1771@gmail.com", "cart": [ { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1 , "image": "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"},{ "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1 , "image": "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"} ], "totalPrice": 244, "status": "Delivered", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17" },
-{ "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e0", "email": "nutthai1771@gmail.com", "cart": [ { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1 , "image": "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"},{ "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1 , "image": "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"} ], "totalPrice": 244, "status": "Canceled", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17" },
-{ "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e8", "email": "nutthai1771@gmail.com", "cart": [ { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1 , "image": "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"},{ "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1 , "image": "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"} ], "totalPrice": 244, "status": "Pending", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17" }
+const order = [{ "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e1", "email": "nutthai1771@gmail.com", "cart": 
+[ { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1 , 
+"image": "https://m.media-amazon.com/images/I/71Eq1-7q8sL._AC_UF894,1000_QL80_.jpg"},{ "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1 , "image": "https://i.ebayimg.com/images/g/jHIAAOSwQLxin-6w/s-l1600.jpg"} ], "totalPrice": 244, "status": "Delivered", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17" },
+{ "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e0", "email": "nutthai1771@gmail.com", "cart": [ { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1 , 
+"image": "https://m.media-amazon.com/images/I/61QZcNuTmZL.jpg"},{ "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1 , "image": "https://djm-aaa1.kxcdn.com/resources/upload/products/61RwllXnPBS._AC_SL1500_.jpg"} ], "totalPrice": 244, "status": "Canceled", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17" },
+{ "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e8", "email": "nutthai1771@gmail.com", "cart": [ { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1 , 
+"image": "https://m.media-amazon.com/images/I/71aVBnQvRAL._AC_UF894,1000_QL80_.jpg"},{ "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1 , "image": "https://djm-aaa1.kxcdn.com/resources/upload/products/61RwllXnPBS._AC_SL1500_.jpg"} ], "totalPrice": 244, "status": "Pending", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17" }
 ]
 
 let selectedStatus = ref(0);

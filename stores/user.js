@@ -33,12 +33,13 @@ export const useUserStore = defineStore('user', {
                 throw error;
             }
         },
-        async register(email, password) {
+        async register(email, password, name) {
             const { $api } = useNuxtApp()
             try {
                 const requestBody = {
                     email: email,
-                    password: password
+                    password: password,
+                    name: name
                 };
                 const response = await $api('/user/newUser', {
                     method: 'POST',
@@ -61,7 +62,15 @@ export const useUserStore = defineStore('user', {
             token.value = null;
             this.token = "",
                 this.user = {}
+        },
+        async fetchUser() {
+            const { $api } = useNuxtApp()
+            const response = await $api('/user', {
+                method: 'GET'
+            });
+            this.user = response
         }
+       
     }
 
 })

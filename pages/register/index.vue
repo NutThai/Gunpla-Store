@@ -17,6 +17,12 @@
             class="text-gray-700 w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none bg-white"
             autocomplete="off">
         </div>
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 mb-2">Name</label>
+          <input type="text" id="name" v-model="name" name="name" required
+            class="text-gray-700 w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none bg-white"
+            autocomplete="off">
+        </div>
         <!-- Password Input -->
         <div class="mb-4">
           <label for="password" class="block text-gray-700 mb-2">Password</label>
@@ -55,6 +61,7 @@ definePageMeta({
   layout: "loginlayout"
 });
 const email = ref('');
+const name = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 const router = useRouter();
@@ -62,7 +69,7 @@ const user = useUserStore()
 const register = async () => {
   try {
     if (password.value == confirmPassword.value) {
-      await user.register(email.value, password.value);
+      await user.register(email.value, password.value, name.value);
       router.push('/');
     }
   } catch (error) {

@@ -15,9 +15,10 @@
           <!-- <img v-if="user.image"
             class="border-2 border-gray-500 rounded-full hover:border-teal-500 hover:border-4 transition duration-300 ease-in-out"
             :src="user.image" alt="Profile Picture" @click="isImageEditing = !isImageEditing, isUploadImage = 0"> -->
-          <img 
+          <img
             class="border-2 border-gray-500 rounded-full hover:border-teal-500 hover:border-4 transition duration-300 ease-in-out"
-            src="@/assets/image/mascot.png" alt="Profile Picture" @click="isImageEditing = !isImageEditing, isUploadImage = 0">
+            src="@/assets/image/mascot.png" alt="Profile Picture"
+            @click="isImageEditing = !isImageEditing, isUploadImage = 0">
         </a>
         <input v-if="isImageEditing" id="images" name="images" type="file" accept="image/*" @change="onFileChange"
           class="block w-full rounded font-kanit border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 mt-4 md:mt-0" />
@@ -28,18 +29,18 @@
       <!-- Additional Information -->
       <div class="flex flex-col md:w-3/4 md:ml-10 ">
         <label for="email" class="text-lg font-kanit text-gray-700">อีเมล</label>
-        <input disabled="" id="email" name="email" placeholder="" v-model="user.email"
+        <input disabled="" id="email" name="email" placeholder="" v-model="userStore.user.email"
           class="block mb-4 w-full pointer-events-none opacity-50 rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-700 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
         <label for="name" class="text-lg font-kanit text-gray-700">ชื่อ-นามสกุล</label>
-        <input :disabled="!isEditing" id="name" name="name" placeholder="" v-model="user.name"
+        <input :disabled="!isEditing" id="name" name="name" placeholder="" v-model="userStore.user.name"
           :class="{ 'pointer-events-none opacity-50': !isEditing }"
           class="block mb-4 w-full rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-700 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
         <label for="address" class="text-lg font-kanit text-gray-700">ที่อยู่</label>
-        <textarea :disabled="!isEditing" id="address" name="address" placeholder="" v-model="user.address"
+        <textarea :disabled="!isEditing" id="address" name="address" placeholder="" v-model="userStore.user.address"
           :class="{ 'pointer-events-none opacity-50': !isEditing }"
           class="block mb-4 w-full rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
         <!-- Add more profile information here -->
-        <button v-if="isEditing" @click="saveEdit()"
+        <button v-if="isEditing" @click="UpdateProfile()"
           class="mt-4 inline-flex w-fit items-center justify-center rounded bg-[#2c52b3] py-2.5 px-4 text-base font-semibold font-['kanit'] tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">บันทึกการเปลี่ยนแปลง</button>
 
       </div>
@@ -51,34 +52,12 @@
 <script setup>
 import { PencilSquareIcon } from '@heroicons/vue/24/outline'
 import { useUserStore } from '@/stores/user'
+const { $api } = useNuxtApp()
+const config = useRuntimeConfig()
 const userStore = useUserStore()
-const user = ref({
-  image: "../../assets/image/mascot.png",
-  email: "nutthai1771@gmail.com",
-  name: "",
-  address: ""
-})
 const isImageEditing = ref(0)
 const isUploadImage = ref(0)
 const isEditing = ref(0)
-const saveEdit = async () => {
-  try {
-    await $api('/user/updateUser', { method: "PUT", body: user.value })
-  }
-  catch (error) {
-    alert(error)
-  }
-}
-const saveImage = async () => {
-  try {
-    await $api('/user/updateUser', { method: "PUT", body: user.value })
-    isImageEditing.value = 0
-    isUploadImage.value = 0
-  }
-  catch (error) {
-    alert(error)
-  }
-}
 var formData = new FormData();
 const onFileChange = (event) => {
   formData = new FormData();
@@ -88,4 +67,36 @@ const onFileChange = (event) => {
 
   isUploadImage.value = !isUploadImage.value
 }
+const saveImage = async () => {
+  try {
+    const res = await $fetch(`${config.public.baseURL}/s3/upload-image`, {
+      body: formData,
+      header: {
+        'Content-Type': 'multipart/form-data'
+      },
+      method: "POST"
+    })
+    userStore.user.images = res.imageUrls
+  }
+  catch (error) {
+    alert(error)
+  }
+}
+const UpdateProfile = async () => {
+  try {
+    await $api("/user/editUser", {
+      body: userStore.user,
+      method: "PUT"
+    }).then(res => console.log(res)).catch(err => console.log(err))
+    formData = new FormData();
+    userStore.fetchUser()
+    isEditing.value = false;
+  }
+  catch (err) {
+    alert((err))
+  }
+
+
+}
+
 </script>

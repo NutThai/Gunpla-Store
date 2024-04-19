@@ -88,7 +88,6 @@ func (controller *UserController) Authentication(c *gin.Context) {
 }
 func (controller *UserController) GetUserHandler(c *gin.Context) {
 	email, exists := c.Get("email")
-	fmt.Print(email)
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "User not found in context"})
 		return
@@ -114,7 +113,16 @@ func (controller *UserController) GetAllUserHandler(c *gin.Context) {
 }
 func (controller *UserController) DeleteUserHandler(c *gin.Context) {
 	email := c.Param("email")
-	fmt.Print(email)
+	role, exists := c.Get("role")
+	fmt.Print(role)
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "User not found in context"})
+		return
+	}
+	if role != "admin" {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "You don't have permission"})
+		return
+	}
 	err := controller.userService.DeleteUser(email)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Customer"})
