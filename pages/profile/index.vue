@@ -35,6 +35,10 @@
         <input :disabled="!isEditing" id="name" name="name" placeholder="" v-model="userStore.user.name"
           :class="{ 'pointer-events-none opacity-50': !isEditing }"
           class="block mb-4 w-full rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-700 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
+          <label for="name" class="text-lg font-kanit text-gray-700">เบอร์โทรศัพท์</label>
+        <input :disabled="!isEditing" id="phoneNumber" name="phoneNumber" placeholder="" v-model="userStore.user.phoneNumber"
+          :class="{ 'pointer-events-none opacity-50': !isEditing }"
+          class="block mb-4 w-full rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-700 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
         <label for="address" class="text-lg font-kanit text-gray-700">ที่อยู่</label>
         <textarea :disabled="!isEditing" id="address" name="address" placeholder="" v-model="userStore.user.address"
           :class="{ 'pointer-events-none opacity-50': !isEditing }"
@@ -76,7 +80,7 @@ const saveImage = async () => {
       },
       method: "POST"
     })
-    userStore.user.images = res.imageUrls
+    userStore.user.image = res.imageUrls
     UpdateProfile()
   }
   catch (error) {
