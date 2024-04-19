@@ -77,6 +77,7 @@ const saveImage = async () => {
       method: "POST"
     })
     userStore.user.images = res.imageUrls
+    UpdateProfile()
   }
   catch (error) {
     alert(error)
