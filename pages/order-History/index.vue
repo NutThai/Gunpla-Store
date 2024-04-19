@@ -49,34 +49,14 @@
 const { $api } = useNuxtApp()
 const config = useRuntimeConfig()
 const userStore = useUserStore()
-const order = [{
-  "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e1", "email": "nutthai1771@gmail.com", "cart":
-    [{
-      "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1,
-      "image": "https://m.media-amazon.com/images/I/71Eq1-7q8sL._AC_UF894,1000_QL80_.jpg"
-    }, { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1, "image": "https://i.ebayimg.com/images/g/jHIAAOSwQLxin-6w/s-l1600.jpg" }], "totalPrice": 244, "status": "Delivered", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17"
-},
-{
-  "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e0", "email": "nutthai1771@gmail.com", "cart": [{
-    "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1,
-    "image": "https://m.media-amazon.com/images/I/61QZcNuTmZL.jpg"
-  }, { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1, "image": "https://djm-aaa1.kxcdn.com/resources/upload/products/61RwllXnPBS._AC_SL1500_.jpg" }], "totalPrice": 244, "status": "Canceled", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17"
-},
-{
-  "orderId": "23ca6629-1b6a-48c0-95aa-84f1f70208e8", "email": "nutthai1771@gmail.com", "cart": [{
-    "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e26", "type": "Gunpla", "quantity": 1,
-    "image": "https://m.media-amazon.com/images/I/71aVBnQvRAL._AC_UF894,1000_QL80_.jpg"
-  }, { "productId": "2d247e5f-0622-427a-b6a2-d76d05e41e25", "type": "Gunpla", "quantity": 1, "image": "https://djm-aaa1.kxcdn.com/resources/upload/products/61RwllXnPBS._AC_SL1500_.jpg" }], "totalPrice": 244, "status": "Pending", "shippingMethod": "ปกติ", "orderDate": "2024-03-06 22:49:29", "address": "33 nakniwat 17"
-}
-]
-
+const orders = ref()
 let selectedStatus = ref(0);
 
 const filteredOrders = computed(() => {
   if (selectedStatus.value === 0) {
-    return order;
+    return orders.value;
   } else {
-    return order.filter(item => item.status === selectedStatus.value);
+    return orders.value.filter(item => item.status === selectedStatus.value);
   }
 });
 
@@ -90,13 +70,16 @@ function cancelOrder(item) {
 }
 const getOrder = async () => {
   try {
-    await $api("/order/getOrderByEmail", {
+    const response = await $api("/order/getOrderByEmail", {
       method: "GET"
-    }).then(res => console.log(res)).catch(err => console.log(err))
+    });
+    orders.value = response;
+    console.log(orders.value); 
+    return response;
+  } catch (err) {
+    console.error('Error fetching orders:', err);
+    throw err;
   }
-  catch (err) {
-    alert((err))
-  }
-}
+};
 getOrder()
 </script>
