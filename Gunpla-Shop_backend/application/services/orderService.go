@@ -24,7 +24,9 @@ func CreateOrderService(orderRepository repository.OrderRepository) *OrderServic
 func (s *OrderService) GetAllOrders() ([]*entity.Order, error) {
 	return s.orderRepository.GetAllOrders()
 }
-
+func (s *OrderService) GetOrderByEmail(email string) ([]*entity.Order, error) {
+	return s.orderRepository.GetOrderByEmail(email)
+}
 func (s *OrderService) CreatePaymentToken(payment restModel.PaymentRestModel) (string, error) {
 	client, err := omise.GetOmiseClient()
 	if err != nil {

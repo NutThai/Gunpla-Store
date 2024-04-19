@@ -25,6 +25,7 @@ func (oc *OrderController) SetupRoutes(router *gin.Engine) {
 	{
 		orderaGroup.Use(middleware.AuthMiddleware(&auth.AuthService{}))
 		orderaGroup.GET("", oc.GetAllOrdersHandler)
+		orderaGroup.GET("/getOrderByEmail", oc.GetOrderByEmailHandler)
 		orderaGroup.POST("/createPaymentToken", oc.CreatePaymentTokenHandler)
 		orderaGroup.POST("/addOrder", oc.AddOrderHandler)
 		orderaGroup.PUT("/updateOrder", oc.UpdateOrderHandler)
@@ -34,6 +35,21 @@ func (oc *OrderController) SetupRoutes(router *gin.Engine) {
 
 func (controller *OrderController) GetAllOrdersHandler(c *gin.Context) {
 	orders, err := controller.orderService.GetAllOrders()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch orders"})
+		return
+	}
+
+	c.JSON(http.StatusOK, orders)
+}
+
+func (controller *OrderController) GetOrderByEmailHandler(c *gin.Context) {
+	email, exists := c.Get("email")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "User not found in context"})
+		return
+	}
+	orders, err := controller.orderService.GetOrderByEmail(email.(string))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch orders"})
 		return

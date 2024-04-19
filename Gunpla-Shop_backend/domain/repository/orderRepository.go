@@ -7,6 +7,7 @@ import (
 
 type OrderRepository interface {
 	GetAllOrders() ([]*entity.Order, error)
+	GetOrderByEmail(string) ([]*entity.Order, error)
 	AddOrder(restModel.OrderRestModel, string) (*restModel.OrderRestModel, error)
 	UpdateOrder(entity.Order) (*entity.Order, error)
 	UpdateOrderStock(restModel.OrderRestModel) (string, error)

@@ -42,7 +42,29 @@ func (repo *OrderRepository) GetAllOrders() ([]*entity.Order, error) {
 	}
 	return orders, nil
 }
-
+func (repo *OrderRepository) GetOrderByEmail(email string) ([]*entity.Order, error) {
+	input := &dynamodb.ScanInput{
+		TableName:        aws.String("Orders"),
+		FilterExpression: aws.String("Email = :email"),
+		ExpressionAttributeValues: map[string]types.AttributeValue{
+			":email": &types.AttributeValueMemberS{Value: email},
+		},
+	}
+	result, err := repo.Client.Scan(context.TODO(), input)
+	if err != nil {
+		return nil, fmt.Errorf("failed to scan DynamoDB table: %v", err)
+	}
+	var orders []*entity.Order
+	for _, item := range result.Items {
+		var order entity.Order
+		err := attributevalue.UnmarshalMap(item, &order)
+		if err != nil {
+			return nil, err
+		}
+		orders = append(orders, &order)
+	}
+	return orders, nil
+}
 func (repo *OrderRepository) AddOrder(order restModel.OrderRestModel, orderId string) (*restModel.OrderRestModel, error) {
 	item, err := attributevalue.MarshalMap(order)
 	currentTime := time.Now().Format(time.DateTime)
